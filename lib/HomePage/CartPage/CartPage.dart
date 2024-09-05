@@ -23,15 +23,21 @@ class CartPage extends StatelessWidget {
                 itemCount: cartController.itemCount,
                 itemBuilder: (ctx, index) {
                   final product = cartController.cartItems[index];
-                  return ListTile(
-                    leading: Image.asset(product.imageUrl),
-                    title: Text(product.name),
-                    subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        cartController.removeFromCart(product);
-                      },
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue.shade100),
+                    child: ListTile(
+                      leading: Image.asset(product.imageUrl),
+                      title: Text(product.name),
+                      subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          cartController.removeFromCart(product);
+                        },
+                      ),
                     ),
                   );
                 },
@@ -39,17 +45,24 @@ class CartPage extends StatelessWidget {
             }),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Obx(() => Text(
                     'Total: \$${cartController.totalPrice.toStringAsFixed(2)}')),
                 ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        WidgetStateColor.resolveWith((state) => Colors.blue),
+                  ),
                   onPressed: () {
                     // Checkout functionality
                   },
-                  child: const Text('Checkout'),
+                  child: const Text(
+                    'Checkout',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ],
             ),
